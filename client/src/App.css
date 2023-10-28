@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+  background-color: #AA471F;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+#passage{
+  text-align: left;
+  padding: 2% 2% 2% 2%;
+  margin: 5% 5% 5% 5%;
+  background-color: #356211;
+  color: #F2E880;
+}
+
+.header{
+  margin-top: 5%;
+  color: #F2E880;
+}
