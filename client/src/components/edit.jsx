@@ -47,21 +47,23 @@ const Update = (props) => {
     }
     return (
         <div>
-            <nav className='navbar' style={{marginTop:"40px", padding:"0px 7% 0px 7%"}}>
+            <nav className='navbar'>
                 <h1>Edit Comment</h1>
                 <Link style={{fontSize:"14px"}} to={"/"}> go back home </Link>
             </nav>
-            <h1 style={{margin:"2% 0% 2% 2%"}}>Edit Score Comment</h1>
-            <form className="form col-md-4 mx-auto" onSubmit={updateScore}>
-            <div className='Form-group mt-3'>
-            {errors.comment? <p className="text-danger">{errors.comment}</p> : ""}
-                    <label htmlFor="" className='form-label'>Score: {wpm} WPM</label> 
-                    <input type="text" className='form-control' value={comment} onChange={ (e) =>setComment(e.target.value)} />
-            </div>
-                <button className='btn btn-primary mt-3'>Submit Edit</button>
-            </form>
-            <div className='row justify-content-center'>
-                <button style={{width:"100px", marginBottom:"30px"}} className='btn btn-danger mt-3' onClick={(e) => {deleteScore(id)}}>Delete</button>
+            <div className='container'>
+                <h1 style={{margin:"2% 0% 2% 2%"}}>Edit Score Comment</h1>
+                <form className="form col-md-4 mx-auto" onSubmit={updateScore}>
+                <div className='Form-group mt-3'>
+                {errors.comment? <p className="text-danger">{errors.comment}</p> : ""}
+                        <label htmlFor="" className='form-label'>Score: {wpm} WPM</label> 
+                        <input type="text" className='form-control' value={comment} onChange={ (e) =>setComment(e.target.value)} />
+                </div>
+                    <button className='btn btn-primary mt-3'>Submit Edit</button>
+                </form>
+                <div className='row justify-content-center'>
+                    <button style={{width:"100px", marginBottom:"30px"}} className='btn btn-danger mt-3' onClick={(e) => {deleteScore(id)}}>Delete</button>
+                </div>
             </div>
         </div>
     )

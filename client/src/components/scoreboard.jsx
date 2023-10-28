@@ -17,7 +17,7 @@ const ScoreList = (props) => {
     return (
         <div className={'container'}>
         <h1 style={{marginTop: "35px", marginBottom:"35px"}}>Your Scores:</h1>
-        <table className='table table-hover table-dark'>
+        <table className='table table-hover table-dark' style={{borderRadius: "25px"}}>
             <thead>
                 <tr>
                     <th scope='col'>WPM</th>

@@ -1,20 +1,29 @@
+*{
+  margin: auto;
+}
 .App {
   text-align: center;
-  background-color: #AA471F;
+  background-image: url(../public/Green\ and\ Yellow\ Avocado\ Fruit\ Pattern\ Virtual\ Background\ \(1\).png);
+  height: 100vmax;
+  padding-top: 5%;
 }
 
 .container{
   display: flex;
   flex-direction: column;
-  
+  background-color: #356211;
+  border-radius: 25px;
+  padding: 2% 2% 2% 2%;
+  margin-bottom: 100px;
+
 }
 
 #passage{
   text-align: left;
   padding: 2% 2% 2% 2%;
   margin: 5% 5% 5% 5%;
-  background-color: #356211;
-  color: #F2E880;
+  background-color: #F2E880;
+
 }
 
 .header{

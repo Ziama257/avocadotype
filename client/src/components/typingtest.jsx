@@ -39,7 +39,7 @@ const TypingTest = () => {
     "to be or not to be, that is the question",
     "the best preparation for tomorrow is doing your best today",
     "show me the money",
-    "one morning I shot an elephant in my pajamas how he got in my pajamas i don't know"
+    "one morning i shot an elephant in my pajamas how he got in my pajamas i don't know"
     ];
     const [scores,setScores] = useState([]);
     const [comment, setComment] =useState("");
@@ -93,7 +93,9 @@ const TypingTest = () => {
     const calculateWPM = (timeElapsed) => {
         //remove the spaces between words to get accurate words typed
         const wordsTyped = input.trim().split(" ").length;
+        //divide by 60 to get minutes
         const minutesElapsed = timeElapsed / 60;
+        //divide words typed by minutes to get wpm
         return minutesElapsed > 0 ? Math.floor(wordsTyped / minutesElapsed) : 0;
     };
     // resets test
@@ -131,7 +133,7 @@ const TypingTest = () => {
     return (
     <div className="container">
         <div className="header">
-            <h1 style={{fontSize:"50px"}}>AvocadoType!</h1>
+            <h1 style={{fontSize:"75px"}}>AvocadoType!</h1>
         </div>
         <div>
             <div className="card mx-auto" id="passage">
@@ -150,7 +152,7 @@ const TypingTest = () => {
         </div>
         {isTimerRunning && <p>Time elapsed: {timer} seconds</p>}
         {!isTimerRunning && endTime && (
-        <div>
+        <div className={'container'}>
             <p>
                 Time elapsed: {timer} seconds 
             </p>
