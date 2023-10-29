@@ -6,4 +6,5 @@ module.exports = (app) => {
     app.get("/api/scores/:id", ScoreController.getScore);
     app.delete("/api/scores/:id", ScoreController.deleteAnExistingScore);
     app.put("/api/scores/:id", ScoreController.updateScore);
+    app.get('/users/:userId/scores', ScoreController.findScoresByUser);
 }

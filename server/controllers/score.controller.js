@@ -37,3 +37,19 @@ module.exports.deleteAnExistingScore = (req, res) => {
         .catch((err) => {
             res.json({ message: 'Something went wrong', error: err })
         });}
+
+    module.exports.findScoresByUser = (req, res) => {
+        const userId = req.params.userId;
+        
+        Score.find({ userId })
+            .then(scores => {
+            if (!scores || scores.length === 0) {
+                res.status(404).json({ message: 'Scores not found for the user' });
+            } else {
+                res.json(scores);
+            }
+            })
+            .catch(error => {
+            res.status(500).json({ message: 'Internal server error', error });
+            });
+        };
