@@ -129,7 +129,7 @@ const TypingTest = () => {
 
 
 
-
+// ADD LOGOUT BUTTON
     return (
     <div className="container">
         <div className="header">
