@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 const TypingTest = () => {
     const texts = [
@@ -108,11 +108,12 @@ const TypingTest = () => {
         // inputRef.current.focus();
         setText(texts[Math.floor(Math.random() * texts.length)]);
     };
+    const token = localStorage.getItem('token');
 
     const handleSubmit = (e) => {
         if (formValidator()){
             axios.post('http://localhost:8000/api/scores', {
-                wpm, comment
+                wpm, comment, headers: { Authorization: `Bearer ${token}` }
             })
             .then( res => {
                 console.log(res.data);

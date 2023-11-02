@@ -22,11 +22,19 @@ try {
     const response = await axios.post('http://localhost:8000/api/login', loginData);
     console.log(response.data);
     // Handle successful login (redirect, set authentication state, etc.)
+
+const { token, user } = response.data;
+
+// Save the token in localStorage
+localStorage.setItem('token', token);
+
+// You can also store other user-related information if needed
+localStorage.setItem('user', JSON.stringify(user));
 } catch (error) {
-    console.error(error.response.data);
-    // Handle login error (show an error message, etc.)
-}
-};
+console.error(error.response.data);
+// Handle login error (show an error message, etc.)
+}};
+
 
 return (
 <div>
