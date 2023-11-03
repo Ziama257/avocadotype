@@ -5,33 +5,33 @@ const jwt = require('jsonwebtoken');
 const createToken = (user) => {
     return jwt.sign({ userId: user._id, username: user.username }, 'your-secret-key', { expiresIn: '1h' });
     };
-    
-module.exports.loginUser = {
-    async loginUser(req, res) {
+
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-
+    
         if (!user) {
         return res.status(401).json({ message: 'Invalid login credentials' });
         }
-
+    
         const isPasswordValid = await bcrypt.compare(password, user.password);
-
         if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid login credentials' });
         }
-
+    
         const token = createToken(user);
-
+    
         res.status(200).json({ token, user: { _id: user._id, username: user.username, email: user.email } });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
-    }
-}
-
+    };
+    
+    module.exports = {
+    loginUser,
+    };
 
 module.exports.findAllUsers = (req, res) => {
     User.find({})

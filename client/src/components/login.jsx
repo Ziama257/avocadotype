@@ -7,6 +7,8 @@ email: '',
 password: '',
 });
 
+const [error, setError] = useState('');
+
 const handleChange = (e) => {
 const { name, value } = e.target;
 setLoginData({
@@ -20,25 +22,26 @@ e.preventDefault();
 
 try {
     const response = await axios.post('http://localhost:8000/api/login', loginData);
-    console.log(response.data);
-    // Handle successful login (redirect, set authentication state, etc.)
+    const { token, user } = response.data;
 
-const { token, user } = response.data;
+    // Save the token in localStorage
+    localStorage.setItem('token', token);
 
-// Save the token in localStorage
-localStorage.setItem('token', token);
+    // You can also store other user-related information if needed
+    localStorage.setItem('user', JSON.stringify(user));
 
-// You can also store other user-related information if needed
-localStorage.setItem('user', JSON.stringify(user));
+    // Redirect to another page (replace '/' with your desired route)
+    window.location.replace('/test');
 } catch (error) {
-console.error(error.response.data);
-// Handle login error (show an error message, etc.)
-}};
-
+    console.error(error.response.data);
+    setError('Invalid email or password');
+}
+};
 
 return (
 <div>
     <h2>Login</h2>
+    {error && <p style={{ color: 'red' }}>{error}</p>}
     <form onSubmit={handleLogin}>
     <label>
         Email:
