@@ -50,6 +50,8 @@ const TypingTest = () => {
     const [wpm, setWPM] = useState(0);
     const [endTime, setEndTime] = useState(null);
     const [errors, setErrors] = useState("");
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const formValidator = () => {
         if (comment.length < 3) {
             return false
@@ -134,7 +136,8 @@ const TypingTest = () => {
     return (
     <div className="container">
         <div className="header">
-            <h1 style={{fontSize:"75px"}}>AvocadoType!</h1>
+            <h2>Welcome, {user.username}!</h2>
+            <h2 style={{fontSize:"75px"}}>AvocadoType!</h2>
         </div>
         <div>
             <div className="card mx-auto" id="passage">
