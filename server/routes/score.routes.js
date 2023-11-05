@@ -2,7 +2,7 @@ const ScoreController = require("../controllers/score.controller");
 const UserController = require("../controllers/user.controller");
 
 module.exports = (app) => {
-    app.get("/api/scores", ScoreController.findAllScores);
+    app.get('/api/highscores', ScoreController.getAllHighScores);
     app.post("/api/scores", ScoreController.createNewScore);
     // app.get("/api/scores/:id", ScoreController.getScore);
     // app.delete("/api/scores/:id", ScoreController.deleteAnExistingScore);
