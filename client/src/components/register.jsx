@@ -1,38 +1,63 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams, Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
-const [username, setUsername] = useState();
-const [email, setEmail] = useState();
-const [password, setPassword] = useState();
+const [username, setUsername] = useState('');
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
 const navigate = useNavigate();
-const [errors, setErrors] = useState("");
-    const formValidator = () => {
-        if (username.length < 3) {
-            return false
-        }
-        return true
+const [errors, setErrors] = useState('');
+
+const formValidator = () => {
+return username.length >= 3;
+};
+
+const register = async (e) => {
+try {
+    e.preventDefault();
+
+    if (formValidator()) {
+    // Register user
+    const registration = await axios.post('http://localhost:8000/api/users', {
+        username,
+        email,
+        password,
+    });
+
+    const user = registration.data;
+    console.log(registration.data);
+
+    // Login user
+    const loginResponse = await axios.post('http://localhost:8000/api/login', {
+        email,
+        password,
+    });
+
+    if (loginResponse.status === 200) {
+        const { token } = loginResponse.data;
+
+        // Save the token in localStorage
+        localStorage.setItem('token', token);
+
+        // You can also store other user-related information if needed
+        localStorage.setItem('user', JSON.stringify(user));
+
+        // Redirect to another page (replace '/' with your desired route)
+        navigate('/test');
+    } else {
+        console.error('Login failed. Status code:', loginResponse.status);
+        console.error('Response data:', loginResponse.data);
     }
-    const register = (e) => {
-        if (formValidator()){
-        e.preventDefault();
-        axios.post('http://localhost:8000/api/users' ,{
-            username,
-            email,
-            password
-        })
-            .then(res => {
-                console.log(res);
-                navigate("/test");
-            })
-            .catch(err => console.log(err))
-        }
-        else{
-            e.preventDefault();
-            setErrors({username: "Username Must be at least 3 characters"})
-        }
+    } else {
+    setErrors('Username must be at least 3 characters');
     }
+} catch (error) {
+    console.error(error);
+    // Handle registration or login error
+    setErrors('An error occurred during registration or login.');
+}
+};
     // ADD VALIDATIONS
     return (
         <div>
