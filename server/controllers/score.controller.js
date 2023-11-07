@@ -1,22 +1,5 @@
 const Score = require('../models/score.model');
 
-const getAllHighScores = async (req, res) => {
-    try {
-        const highScores = await Score.find({})
-        .sort({ wpm: -1 }) // Sort in descending order (highest to lowest)
-        .limit(10); // Limit the number of results (e.g., top 10)
-        
-        res.json(highScores);
-    } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-}
-};
-
-module.exports = {
-getAllHighScores,
-};
-
 module.exports.getScore = (req, res) => {
     Score.findOne({_id:req.params.id})
         .then(score => res.json(score))
@@ -35,6 +18,20 @@ module.exports.updateScore = (req, res) => {
         .catch(err => res.json(err));
 
 }
+
+module.exports.getAllHighScores = async (req, res) => {
+try {
+    const highScores = await Score.find({})
+    .sort({ wpm: -1 }) // Sort in descending order (highest to lowest)
+    .limit(10) // Limit the number of results (e.g., top 10)
+    .populate('userId', 'username'); // Populate the userId field to get username
+
+    res.json(highScores);
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+}
+};
 
 module.exports.deleteAnExistingScore = (req, res) => {
     Score.deleteOne({ _id: req.params.id })

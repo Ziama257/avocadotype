@@ -51,7 +51,6 @@ const TypingTest = () => {
     const [endTime, setEndTime] = useState(null);
     const [errors, setErrors] = useState("");
     const user = JSON.parse(localStorage.getItem('user'));
-
     const formValidator = () => {
         if (comment.length < 3) {
             return false
