@@ -1,9 +1,12 @@
 const ScoreController = require("../controllers/score.controller");
 const UserController = require("../controllers/user.controller");
+// const verifyToken = require('../middleware/verifyToken');
 
 module.exports = (app) => {
     app.get('/api/highscores', ScoreController.getAllHighScores);
-    app.post("/api/scores", ScoreController.createNewScore);
+    app.post("/api/scores", 
+    // verifyToken, 
+    ScoreController.createNewScore);
     // app.get("/api/scores/:id", ScoreController.getScore);
     // app.delete("/api/scores/:id", ScoreController.deleteAnExistingScore);
     // app.put("/api/scores/:id", ScoreController.updateScore);

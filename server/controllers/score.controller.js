@@ -6,11 +6,18 @@ module.exports.getScore = (req, res) => {
         .catch(err => res.json(err));
 }
 
-module.exports.createNewScore = (req, res) => {
-    Score.create(req.body)
-        .then(score => res.json(score))
-        .catch(err => res.json(err));
-        };
+module.exports.createNewScore = async (req, res) => {
+    try {
+      const { userId } = req.user; // Extract userId from the authenticated user
+        const { wpm, comment } = req.body;
+
+        const newScore = await Score.create({ userId, wpm, comment });
+
+        res.json(newScore);
+    } catch (error) {
+        res.status(400).json({ message: 'Error creating score', error });
+    }
+    };
 
 module.exports.updateScore = (req, res) => {
     Score.findOneAndUpdate({_id:req.params.id}, req.body, {new:true})

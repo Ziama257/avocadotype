@@ -19,7 +19,7 @@ return (
     <ul>
     {highScores.map(score => (
         <li key={score._id}>
-        {/* {score.user}: {score.wpm} WPM */}
+        {/* {score.comment}: {score.wpm} WPM */}
         </li>
     ))}
     </ul>
