@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const Score = require('./score.model');
+// const Score = require('./score.model');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    highScores: { type: [Score], default: [] }, // Default to an empty array
+    // highScores: { type: [Score], default: [] }, // Default to an empty array
 });
 
 userSchema.pre('save', async function (next) {

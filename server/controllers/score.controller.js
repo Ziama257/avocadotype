@@ -27,11 +27,34 @@ module.exports.updateScore = (req, res) => {
 }
 
 module.exports.getAllHighScores = async (req, res) => {
-try {
-    const highScores = await Score.find({})
-    .sort({ wpm: -1 }) // Sort in descending order (highest to lowest)
-    .limit(10) // Limit the number of results (e.g., top 10)
-    .populate('userId', 'username'); // Populate the userId field to get username
+    try {
+    const highScores = await Score.aggregate([
+    {
+        $sort: { wpm: -1 }, // Sort in descending order (highest to lowest)
+    },
+    {
+        $limit: 10, // Limit the number of results (e.g., top 10)
+    },
+    {
+        $lookup: {
+        from: 'users', // The name of the User model collection in MongoDB
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'user',
+        },
+    },
+    {
+        $unwind: '$user',
+    },
+    {
+        $project: {
+        _id: 1,
+        wpm: 1,
+        comment: 1,
+        'user.username': 1,
+        },
+    },
+    ]);
 
     res.json(highScores);
 } catch (error) {
@@ -39,6 +62,7 @@ try {
     res.status(500).json({ message: 'Internal server error' });
 }
 };
+
 
 module.exports.deleteAnExistingScore = (req, res) => {
     Score.deleteOne({ _id: req.params.id })

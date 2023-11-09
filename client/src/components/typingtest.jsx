@@ -51,7 +51,6 @@ const TypingTest = () => {
     const [endTime, setEndTime] = useState(null);
     const [errors, setErrors] = useState("");
     const user = JSON.parse(localStorage.getItem('user'));
-    const username = user.username
     const formValidator = () => {
         if (comment.length < 3) {
             return false
@@ -115,8 +114,8 @@ const TypingTest = () => {
     const handleSubmit = (e) => {
         if (formValidator()){
             axios.post('http://localhost:8000/api/highscores', {
-                wpm, comment, username
-                // headers: { Authorization: `Bearer ${token}` }
+                wpm, comment,
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then( res => {
                 console.log(res.data);
@@ -169,7 +168,6 @@ const TypingTest = () => {
                     <label htmlFor="" className='form-label'>Comment on your score</label> 
                     <input type="text" className='form-control' onChange={ (e) =>setComment(e.target.value)} />
             </div>
-            {/* <input type="hidden" value={username}></input> */}
             <button className='btn btn-primary mt-3'>Submit Score</button>
             </form>
         </div>
