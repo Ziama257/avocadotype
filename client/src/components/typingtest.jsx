@@ -113,9 +113,11 @@ const TypingTest = () => {
 
     const handleSubmit = (e) => {
         if (formValidator()){
-            axios.post('http://localhost:8000/api/highscores', {
+            const author = user.username
+            axios.post('http://localhost:8000/api/scores', {
                 wpm, comment,
-                headers: { Authorization: `Bearer ${token}` }
+                author
+                // headers: { Authorization: `Bearer ${token}` }
             })
             .then( res => {
                 console.log(res.data);
