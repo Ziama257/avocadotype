@@ -140,6 +140,7 @@ const TypingTest = () => {
         <div className="header">
             <h2>Welcome, {user.username}!</h2>
             <h2 style={{fontSize:"75px"}}>AvocadoType!</h2>
+            < a href="./highscores">High Scores</a>
         </div>
         <div>
             <div className="card mx-auto" id="passage">

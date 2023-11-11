@@ -14,12 +14,14 @@ axios.get('http://localhost:8000/api/highscores')
 }, []);
 
 return (
-<div>
-    <h2>High Scores</h2>
-    <ul>
-    {highScores.map(score => (
-        <li key={score._id}>
-        {score.author}: {score.wpm} WPM
+<div className="container">
+    <h2 style={{ marginTop: '35px', marginBottom: '35px' }}>High Scores</h2>
+    < a href='./test'>Back to test</a>
+    <ul className="list-group">
+    {highScores.map((score) => (
+        <li key={score._id} className="list-group-item">
+        <span style={{ fontSize: '20px', marginRight: '15px' }}>User: {score.author}</span>
+        <span style={{ fontSize: '20px' }}>WPM: {score.wpm}</span>
         </li>
     ))}
     </ul>
