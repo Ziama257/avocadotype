@@ -9,7 +9,10 @@ const [highScores, setHighScores] = useState([]);
 // }
 useEffect(() => {
 axios.get('http://localhost:8000/api/highscores')
-    .then(response => setHighScores(response.data))
+    .then(response =>  {
+        const sortedScores = response.data.sort((a, b) => b.wpm - a.wpm);
+        setHighScores(sortedScores);
+    })
     .catch(error => console.error(error));
 }, []);
 
