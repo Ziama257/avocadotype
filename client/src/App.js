@@ -6,6 +6,8 @@ import Registration from './components/register';
 import Login from './components/login';
 import Update from './components/edit';
 import HighScores from './components/highscores';
+import UserList from './components/userlist';
+import UserPage from './components/userpage';
 import './App.css';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route element={[<TypingTest />]} path='/test'/>
         <Route element={<Update/>} path ="/scores/edit/:id" />
         <Route element={<HighScores/>} path="/highscores" />
+        <Route element ={<UserList/>} path="/users"/>
+        <Route element ={<UserPage/>} path ="/users/:username"/>
       </Routes>
       </BrowserRouter>
     </div>

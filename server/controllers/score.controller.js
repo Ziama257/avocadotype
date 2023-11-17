@@ -25,7 +25,7 @@ module.exports.updateScore = (req, res) => {
 
 }
 
-module.exports.getAllHighScores = (req, res) => {
+module.exports.getAllScores = (req, res) => {
     Score.find({})
         .then(scores => {
             res.json(scores);
@@ -43,18 +43,16 @@ module.exports.deleteAnExistingScore = (req, res) => {
             res.json({ message: 'Something went wrong', error: err })
         });}
 
-    module.exports.findScoresByUser = (req, res) => {
-        const userId = req.params.userId;
-        
-        Score.find({ userId })
-            .then(scores => {
-            if (!scores || scores.length === 0) {
-                res.status(404).json({ message: 'Scores not found for the user' });
-            } else {
-                res.json(scores);
-            }
-            })
-            .catch(error => {
-            res.status(500).json({ message: 'Internal server error', error });
-            });
-        };
+module.exports.getScoresByUsername = async (req, res) => {
+    try {
+        const author= req.params.username;
+        console.log(author)
+        const scores = await Score.find({ author });
+        console.log(scores)
+    
+        res.json(scores);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+    };

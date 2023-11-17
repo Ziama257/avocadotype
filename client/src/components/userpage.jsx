@@ -1,32 +1,49 @@
-// UserPage.js
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-// const UserPage = ({ match }) => {
-// const [userData, setUserData] = useState(null);
+const UserPage = () => {
+const { username } = useParams();
+// const [userData, setUserData] = useState({});
+const [userScores, setUserScores] = useState([]);
 
-// useEffect(() => {
-// const userId = match.params.userId; // Assuming the parameter is named userId
-// axios.get(`http://localhost:8000/api/users/${userId}`)
-//     .then((response) => {
-//     setUserData(response.data);
-//     })
-//     .catch((error) => {
-//     console.error(error);
-//     });
-// }, [match.params.userId]);
+useEffect(() => {
+// Fetch user-specific data based on the username
+// axios.get(`http://localhost:8000/api/users/${username}`)
+//     .then(response => setUserData(response.data))
+//     .catch(error => console.error(error));
 
-// if (!userData) {
-// return <div>Loading...</div>;
-// }
+// Fetch scores for the user
+axios.get(`http://localhost:8000/api/scores/${username}`)
+    .then(response => {
+    setUserScores(response.data);
+    console.log('User Scores:', response.data);
+    })
+    .catch(error => console.error(error));
+}, [username]);
 
-// return (
-// <div>
-//     <h2>User Profile</h2>
-//     <p>Username: {userData.username}</p>
-//     {/* Display other user information */}
-// </div>
-// );
-// };
+return (
+<div>
+    <h2>User Profile: {username}</h2>
 
-// export default UserPage;
+    <div>
+    {/* Display user-specific information (e.g., name, email, etc.) */}
+    {/* <p>Name: {userData.name}</p>
+    <p>Email: {userData.email}</p> */}
+    </div>
+
+    <div>
+    <h3>User Scores</h3>
+    <ul>
+        {userScores.map(score => (
+        <li key={score._id}>
+            WPM: {score.wpm}, Comment: {score.comment}
+        </li>
+        ))}
+    </ul>
+    </div>
+</div>
+);
+};
+
+export default UserPage;
