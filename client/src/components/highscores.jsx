@@ -8,7 +8,7 @@ const [highScores, setHighScores] = useState([]);
 //   // Redirect to login or show a message
 // }
 useEffect(() => {
-axios.get('http://localhost:8000/api/highscores')
+axios.get('http://localhost:8000/api/scores')
     .then(response =>  {
         const sortedScores = response.data.sort((a, b) => b.wpm - a.wpm);
         setHighScores(sortedScores);
