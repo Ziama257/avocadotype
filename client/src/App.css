@@ -30,3 +30,35 @@
   margin-top: 5%;
   color: #F2E880;
 }
+h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.link-button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  background-color: #0056b3;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-link {
+  text-decoration: none;
+  color: #007BFF;
+  font-weight: bold;
+}
+
+.user-link:hover {
+  color: #0056b3;
+}

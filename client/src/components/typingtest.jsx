@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import HighScores from "./highscores";
 const TypingTest = () => {
     const texts = [
     "the cat in the hat",
@@ -51,6 +53,13 @@ const TypingTest = () => {
     const [endTime, setEndTime] = useState(null);
     const [errors, setErrors] = useState("");
     const user = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
+    const navToHighScores = () => {
+        navigate('/highscores');
+        };
+    const navToUsers = () => {
+        navigate('/users');
+        };
     const formValidator = () => {
         if (comment.length < 3) {
             return false
@@ -139,9 +148,9 @@ const TypingTest = () => {
     <div className="container">
         <div className="header">
             <h2>Welcome, {user.username}!</h2>
-            <h2 style={{fontSize:"75px"}}>AvocadoType!</h2>
-            < a href="./highscores">High Scores</a>
-            < a href="./users">Users</a>
+            <h2 style={{ fontSize: "75px" }}>AvocadoType!</h2>
+            <button className="link-button" onClick={navToHighScores}>High Scores</button>
+            <button className="link-button" onClick={navToUsers}>Users</button>
         </div>
         <div>
             <div className="card mx-auto" id="passage">
