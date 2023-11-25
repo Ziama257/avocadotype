@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import HighScores from "./highscores";
 const TypingTest = () => {
     const texts = [
     "the cat in the hat",
@@ -53,13 +52,6 @@ const TypingTest = () => {
     const [endTime, setEndTime] = useState(null);
     const [errors, setErrors] = useState("");
     const user = JSON.parse(localStorage.getItem('user'));
-    const navigate = useNavigate();
-    const navToHighScores = () => {
-        navigate('/highscores');
-        };
-    const navToUsers = () => {
-        navigate('/users');
-        };
     const formValidator = () => {
         if (comment.length < 3) {
             return false
@@ -145,47 +137,55 @@ const TypingTest = () => {
 
 // ADD LOGOUT BUTTON
     return (
-    <div className="container">
-        <div className="header">
+    <div>
+        <nav>
             <h2>Welcome, {user.username}!</h2>
-            <h2 style={{ fontSize: "75px" }}>AvocadoType!</h2>
-            <button className="link-button" onClick={navToHighScores}>High Scores</button>
-            <button className="link-button" onClick={navToUsers}>Users</button>
-        </div>
-        <div>
-            <div className="card mx-auto" id="passage">
-                <p style={{fontSize:"35px"}}>{text}</p>
+            <Link to="/highscores">High Scores</Link>
+            <Link to="/users">User Roster</Link>
+        </nav>
+        <div className="container">
+            <div class="wrapper">
+                <svg>
+                    <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                        Avocado Type
+                    </text>
+                </svg>
             </div>
-        </div>
-        <div>
-            <textarea
-            class="form-control mx-auto" rows="3"
-            style={{}}
-            value={input}
-            onChange={handleInputChange}
-            disabled={endTime !== null}
-            placeholder="Start typing..."
-            />
-        </div>
-        {isTimerRunning && <p>Time elapsed: {timer} seconds</p>}
-        {!isTimerRunning && endTime && (
-        <div className={'container'}>
-            <p>
-                Time elapsed: {timer} seconds 
-            </p>
-            <br/>
-            <h1 style={{marginTop:"50px", marginBottom:"80px"}}>Great Job! You Typed {wpm} wpm!</h1>
-            {errors.comment? <p className="text-danger">{errors.comment}</p> : ""}
-            <form onSubmit={handleSubmit} className="form col-md-4 mx-auto">
-            <div className='Form-group mt-3'>
-                    <label htmlFor="" className='form-label'>Comment on your score</label> 
-                    <input type="text" className='form-control' onChange={ (e) =>setComment(e.target.value)} />
+            <div>
+                <div className="card mx-auto" id="passage">
+                    <p style={{fontSize:"35px"}}>{text}</p>
+                </div>
             </div>
-            <button className='btn btn-primary mt-3'>Submit Score</button>
-            </form>
+            <div>
+                <textarea
+                class="form-control mx-auto" rows="3"
+                style={{}}
+                value={input}
+                onChange={handleInputChange}
+                disabled={endTime !== null}
+                placeholder="Start typing..."
+                />
+            </div>
+            {isTimerRunning && <p>Time elapsed: {timer} seconds</p>}
+            {!isTimerRunning && endTime && (
+            <div className={'container'}>
+                <p>
+                    Time elapsed: {timer} seconds 
+                </p>
+                <br/>
+                <h1 style={{marginTop:"50px", marginBottom:"80px"}}>Great Job! You Typed {wpm} wpm!</h1>
+                {errors.comment? <p className="text-danger">{errors.comment}</p> : ""}
+                <form onSubmit={handleSubmit} className="form col-md-4 mx-auto">
+                <div className='Form-group mt-3'>
+                        <label htmlFor="" className='form-label'>Comment on your score</label> 
+                        <input type="text" className='form-control' onChange={ (e) =>setComment(e.target.value)} />
+                </div>
+                <button className='btn btn-primary mt-3'>Submit Score</button>
+                </form>
+            </div>
+            )}
+            <button className='btn btn-primary mt-3 mx-auto' onClick={handleRestart}>Restart</button>
         </div>
-        )}
-        <button className='btn btn-primary mt-3 mx-auto' onClick={handleRestart}>Restart</button>
     </div>
     );
 };
